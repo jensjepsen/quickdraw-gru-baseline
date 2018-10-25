@@ -32,7 +32,7 @@ def process(data,class2label,max_strokes,max_stroke_length,test=False):
     
     if not test:
         label = class2label[cls]
-        return dict(drawing=drawing_new,label=label)
+        return drawing_new,label
     else:
         return (drawing_new,id)
 

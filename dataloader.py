@@ -50,7 +50,7 @@ def collate_flat(data):
     labels = np.array(labels)[drawing_order]
                 
     return (torch.tensor(drawings_tensor),
-            labels,
+            torch.tensor(labels).long(),
             torch.tensor(drawing_lens).long(),
             )
 
@@ -186,7 +186,7 @@ class QuickDrawDataset(Dataset):
                 return None
             reader = readers[np.random.randint(0,len(readers))]
             l = next(reader,None)
-            r = process(l,self.class2label) if not l is None else None
+            r = helpers.process(l,self.class2label,self.max_strokes,self.max_stroke_length) if not l is None else None
             label = r[1]
             counter[label] += 1
             if l is None or counter[label] > self.max_per_class:
