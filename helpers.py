@@ -12,6 +12,7 @@ except ImportError:
 
 def process(data,class2label,max_strokes,max_stroke_length,test=False):
     line = data
+    
     if not test:
         code, drawing, id, recognized, timestamp, cls = line
     else:

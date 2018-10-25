@@ -21,6 +21,7 @@ try:
 except ImportError:
     vis = None
 
+
 def collate_flat(data):
     drawings, labels = zip(*data)
     drawings = drawings[0]
