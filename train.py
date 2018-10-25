@@ -144,23 +144,20 @@ if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser()
     
-    ap.add_argument("--mode",default="train",choices=["train","load","test"])
+    ap.add_argument("--mode",default="train",choices=["train","load"])
     ap.add_argument("--batch_size",default=128,type=int)
-    ap.add_argument("--hidden_size",default=128,type=int)
-    ap.add_argument("--learning_rate",default=0.001,type=float)
+    ap.add_argument("--hidden_size",default=128,type=int, help="Hidden size of all layers of the model")
+    ap.add_argument("--learning_rate",default=0.001,type=float, help="Learning rate for the Adam optimizer")
     ap.add_argument("--clip_grad_norm",default=9.0,type=float)
     ap.add_argument("--epochs",default=1000,type=int)
-    ap.add_argument("--max_per_class",default=1000,type=int)
-    ap.add_argument("--max_strokes",default=30,type=int)
-    ap.add_argument("--max_stroke_length",default=50,type=int)
-    ap.add_argument("--num_layers",default=50,type=int)
+    ap.add_argument("--max_per_class",default=10000,type=int, help="Number of examples to read from csv files for each class")
+    ap.add_argument("--max_strokes",default=30,type=int, help="Max strokes per drawing, drawings with more strokes will be truncated")
+    ap.add_argument("--max_stroke_length",default=50,type=int, help="Max points per stroke, strokes with more points will be truncated")
+    ap.add_argument("--num_layers",default=5,type=int, help="Number of GRU layers")
 
     
     args = ap.parse_args()
     args = vars(args)
     mode = args.pop("mode")
-    if mode == "test":
-        test()
-    else:
-        train(mode=="load",**args)
+    train(mode=="load",**args)
         
